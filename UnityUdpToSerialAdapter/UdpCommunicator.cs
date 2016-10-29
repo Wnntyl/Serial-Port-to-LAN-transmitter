@@ -45,9 +45,8 @@ namespace SerialToLanTransmitter
 
             _isRunning = true;
 
-            StartReceive();
-
-            Log("Udp communication has started");
+            if(StartReceive())
+                Log("Udp communication has started");
         }
 
         private void SetupPorts(int remotePort, int localPort)
@@ -100,7 +99,7 @@ namespace SerialToLanTransmitter
             }
         }
 
-        private void StartReceive()
+        private bool StartReceive()
         {
             try
             {
@@ -113,10 +112,13 @@ namespace SerialToLanTransmitter
                 };
 
                 _receivingUdpClient.BeginReceive(new AsyncCallback(ReceiveCallback), udpState);
+
+                return true;
             }
             catch (Exception ex)
             {
                 Log(ex.ToString());
+                return false;
             }
         }
 

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Collections.Concurrent;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace SerialToLanTransmitter
 {
@@ -14,6 +15,8 @@ namespace SerialToLanTransmitter
     public partial class MainWindow : Window
     {
         private const int COMMUNICATION_THREAD_SLEEP_TIME = 10;
+        private const int MESSAGE_COUNT_LIMIT = 250;
+
         private UdpCommunicator _udpCommunicator;
         private SerialCommunicator _serialCommunicator;
         private MessageBuilder _messageBuilder = new MessageBuilder();
@@ -102,15 +105,27 @@ namespace SerialToLanTransmitter
                 //Console.WriteLine("showMsg: " + message);
                 msg = _messageBuilder.Build(msg);
 
-                logTextBox.AppendText(msg);
-                logTextBox.AppendText(Environment.NewLine);
+                var msgPara = new Paragraph();
+                msgPara.Inlines.Add(new Run(msg));
+                logTextBox.Document.Blocks.Add(msgPara);
 
                 if (_messageCount < int.MaxValue)
                     _messageCount++;
                 SetMessageCount(_messageCount);
+
+                LimitRichTextBox();
             };
 
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action<string>(showMsg), message);
+        }
+
+        private void LimitRichTextBox()
+        {
+            if (_messageCount < MESSAGE_COUNT_LIMIT)
+                return;
+
+            var firstBlock = logTextBox.Document.Blocks.FirstBlock;
+            logTextBox.Document.Blocks.Remove(firstBlock);
         }
 
         public static void Log(string message)
