@@ -1,0 +1,18 @@
+﻿<Window x:Class="SerialToLanTransmitter.TransmissionTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SerialToLanTransmitter"
+        mc:Ignorable="d"
+        Title="Transmission test" Height="245" Width="220" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="Icons/Application_icon.ico" Closed="Window_Closed">
+    <Grid>
+        <TextBox x:Name="messageTextBox" Margin="5,5,5,119" TextWrapping="Wrap" Text="Message to send" BorderThickness="1"/>
+        <Label x:Name="countLabel" Content="Message count:" HorizontalAlignment="Left" Margin="0,0,0,81" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+        <Label x:Name="delayLabel" Content="Send delay:" HorizontalAlignment="Left" Margin="0,0,0,50" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+        <Button x:Name="sendButton" Content="Send" Margin="0,0,0,12" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="75" Click="sendButton_Click"/>
+        <TextBox x:Name="countTextBox" Height="23" Margin="0,0,10,81" TextWrapping="Wrap" Text="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="84" HorizontalAlignment="Right"/>
+        <TextBox x:Name="delayTextBox" Margin="0,0,10,50" TextWrapping="Wrap" Text="0.1" Width="84" Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="in seconds" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
